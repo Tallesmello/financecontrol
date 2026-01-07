@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">FinanceControl</string>
+    <string name="controle_financeiro">Controle Financeiro</string>
+    <string name="valor_da_despesa">Valor da despesa</string>
+    <string name="resumo_financeiro">Resumo financeiro</string>
+    <string name="descri_o">Descrição</string>
+    <string name="adicionar_despesa">Adicionar despesa</string>
+    <string name="pesquisa_despesa">Pesquisa despesa</string>
+    <string name="data_da_despesa">Data da despesa</string>
+
+    <!-- Categorias REAIS (usadas para cadastrar despesas) -->
+    <string-array name="categorias_despesas">
+        <item>🍔 Alimentação</item>
+        <item>🚗 Carro</item>
+        <item>🏠 Apto</item>
+        <item>💡 Contas</item>
+        <item> Cartões</item>
+        <item>🎮 Lazer</item>
+        <item>📦 Outros</item>
+    </string-array>
+
+    <!-- Categorias para FILTRO -->
+    <string-array name="categorias_filtro">
+        <item>📋 Todas</item>
+        <item>🍔 Alimentação</item>
+        <item>🚗 Carro</item>
+        <item>🏠 Apto</item>
+        <item>💡 Contas</item>
+        <item> Cartões</item>
+        <item>🎮 Lazer</item>
+        <item>📦 Outros</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/controle_financeiro"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtResumo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/resumo_financeiro"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/edtValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/valor_da_despesa"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/edtDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/descri_o" />
+
+    <EditText
+        android:id="@+id/edtData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/data_da_despesa"
+        android:inputType="none" />
+
+    <EditText
+        android:id="@+id/edtVencimento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data de vencimento (opcional)"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none" />
+
+
+    <Spinner
+        android:id="@+id/spnCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/categorias_despesas" />
+
+    <Button
+        android:id="@+id/btnAdicionar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/adicionar_despesa" />
+
+    <EditText
+        android:id="@+id/edtPesquisa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/pesquisa_despesa" />
+
+    <Spinner
+        android:id="@+id/spnFiltroCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:entries="@array/categorias_filtro" />
+
+    <!-- LISTA -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDespesas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
