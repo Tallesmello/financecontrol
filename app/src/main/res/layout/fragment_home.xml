@@ -3,51 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
     android:padding="16dp">
-
-    <!-- Valor -->
-    <EditText
-        android:id="@+id/edtValor"
-        android:hint="Valor"
-        android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!-- Descrição -->
-    <EditText
-        android:id="@+id/edtDescricao"
-        android:hint="Descrição"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!-- Categoria -->
-    <Spinner
-        android:id="@+id/spnCategoria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!-- Data -->
-    <EditText
-        android:id="@+id/edtData"
-        android:hint="Data"
-        android:focusable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!-- Vencimento -->
-    <EditText
-        android:id="@+id/edtVencimento"
-        android:hint="Vencimento"
-        android:focusable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!-- Botão -->
-    <Button
-        android:id="@+id/btnAdicionar"
-        android:text="Adicionar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <!-- Pesquisa -->
     <EditText
@@ -66,8 +23,10 @@
     <TextView
         android:id="@+id/txtResumo"
         android:text="Resumo financeiro"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
 
     <!-- Lista de despesas -->
     <androidx.recyclerview.widget.RecyclerView
