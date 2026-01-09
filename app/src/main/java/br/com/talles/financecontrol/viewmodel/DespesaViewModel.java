@@ -22,33 +22,21 @@ import br.com.talles.financecontrol.util.Event;
 
 public class DespesaViewModel extends AndroidViewModel {
 
-    // ================= CONSTANTES =================
     private static final String CATEGORIA_TODAS = "Todas";
-
-    // ================= DATABASE =================
     private final DespesaDao despesaDao;
     private final ExecutorService executor;
-
-    // ================= LISTAS =================
     private final MutableLiveData<List<Despesa>> todasDespesas = new MutableLiveData<>();
     private final MutableLiveData<List<Despesa>> despesasFiltradas = new MutableLiveData<>();
-
-    // ================= UI =================
     private final MutableLiveData<String> resumoFinanceiro = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> mensagem = new MutableLiveData<>();
-
-    // ================= DATAS =================
     private final MutableLiveData<Long> dataSelecionada = new MutableLiveData<>();
     private final MutableLiveData<Long> dataVencimentoSelecionada = new MutableLiveData<>();
-
     private final MutableLiveData<String> textoData = new MutableLiveData<>();
     private final MutableLiveData<String> textoVencimento = new MutableLiveData<>();
-
-    // ================= FILTROS =================
     private String textoPesquisa = "";
     private String categoriaFiltro = CATEGORIA_TODAS;
+    private final MutableLiveData<Map<String, Integer>> contadorCategorias = new MutableLiveData<>();
 
-    // ================= CONSTRUTOR =================
     public DespesaViewModel(@NonNull Application application) {
         super(application);
 
@@ -89,11 +77,16 @@ public class DespesaViewModel extends AndroidViewModel {
         return dataVencimentoSelecionada.getValue();
     }
 
+    public LiveData<Map<String, Integer>> getContadorCategorias() {
+        return contadorCategorias;
+    }
+
     // ================= DATABASE =================
     private void carregarDespesas() {
         executor.execute(() -> {
             List<Despesa> lista = despesaDao.listarTodas();
             todasDespesas.postValue(lista);
+            calcularContadorCategorias(lista);
             aplicarFiltrosComLista(lista);
         });
     }
@@ -246,4 +239,17 @@ public class DespesaViewModel extends AndroidViewModel {
 
         resumoFinanceiro.postValue(resumo);
     }
+
+    private void calcularContadorCategorias(List<Despesa> lista) {
+
+        Map<String, Integer> contador = new HashMap<>();
+
+        for (Despesa d : lista) {
+            String categoria = d.getCategoria();
+            contador.put(categoria, contador.getOrDefault(categoria, 0) + 1);
+        }
+
+        contadorCategorias.postValue(contador);
+    }
+
 }

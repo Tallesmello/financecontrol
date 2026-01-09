@@ -28,6 +28,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"/>
 
+    <TextView
+        android:id="@+id/txtContadorCategorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:padding="8dp"
+        android:text="Contador por categoria" />
+
     <!-- Lista de despesas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDespesas"

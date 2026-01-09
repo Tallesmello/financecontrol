@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private DespesaAdapter adapter;
     private DespesaViewModel viewModel;
     private TextView txtVazio;
+    private TextView txtContadorCategorias;
     private final List<Despesa> listaFiltrada = new ArrayList<>();
 
     public HomeFragment() {
@@ -61,6 +62,7 @@ public class HomeFragment extends Fragment {
         observarDespesas();
         observarResumo();
         observarMensagem();
+        observarContadorCategorias();
 
         configurarPesquisa();
         configurarFiltroCategoria();
@@ -103,6 +105,32 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void observarContadorCategorias() {
+        viewModel.getContadorCategorias().observe(getViewLifecycleOwner(), contador -> {
+
+            if (contador == null || contador.isEmpty()) {
+                txtContadorCategorias.setText("");
+                return;
+            }
+
+            StringBuilder texto = new StringBuilder();
+
+            for (String categoria : contador.keySet()) {
+                texto.append(categoria)
+                        .append(" (")
+                        .append(contador.get(categoria))
+                        .append(")  •  ");
+            }
+
+            // remove o último separador
+            if (texto.length() >= 5) {
+                texto.setLength(texto.length() - 5);
+            }
+
+            txtContadorCategorias.setText(texto.toString());
+        });
+    }
+
     /* ================= SETUP ================= */
 
     private void bindViews(View view) {
@@ -111,6 +139,8 @@ public class HomeFragment extends Fragment {
         recyclerDespesas = view.findViewById(R.id.recyclerDespesas);
         txtResumo = view.findViewById(R.id.txtResumo);
         txtVazio = view.findViewById(R.id.txtVazio);
+        txtContadorCategorias = view.findViewById(R.id.txtContadorCategorias);
+
     }
 
     private void setupRecyclerView() {
