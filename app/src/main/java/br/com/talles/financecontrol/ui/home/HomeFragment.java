@@ -34,10 +34,9 @@ public class HomeFragment extends Fragment {
     private Spinner spnFiltroCategoria;
     private RecyclerView recyclerDespesas;
     private TextView txtResumo;
-
     private DespesaAdapter adapter;
     private DespesaViewModel viewModel;
-
+    private TextView txtVazio;
     private final List<Despesa> listaFiltrada = new ArrayList<>();
 
     public HomeFragment() {
@@ -76,6 +75,14 @@ public class HomeFragment extends Fragment {
             listaFiltrada.clear();
             listaFiltrada.addAll(despesas);
             adapter.notifyDataSetChanged();
+
+            if (despesas == null || despesas.isEmpty()) {
+                txtVazio.setVisibility(View.VISIBLE);
+                recyclerDespesas.setVisibility(View.GONE);
+            } else {
+                txtVazio.setVisibility(View.GONE);
+                recyclerDespesas.setVisibility(View.VISIBLE);
+            }
         });
     }
 
@@ -103,6 +110,7 @@ public class HomeFragment extends Fragment {
         spnFiltroCategoria = view.findViewById(R.id.spnFiltroCategoria);
         recyclerDespesas = view.findViewById(R.id.recyclerDespesas);
         txtResumo = view.findViewById(R.id.txtResumo);
+        txtVazio = view.findViewById(R.id.txtVazio);
     }
 
     private void setupRecyclerView() {

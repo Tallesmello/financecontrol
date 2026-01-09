@@ -35,4 +35,16 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <TextView
+        android:id="@+id/txtVazio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nenhuma despesa nesta categoria"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="gone"
+        android:padding="16dp" />
+
+
 </LinearLayout>
