@@ -56,7 +56,7 @@ public class DespesaViewModel extends AndroidViewModel {
         despesaDao = db.despesaDao();
         executor = Executors.newSingleThreadExecutor();
 
-        definirDataHoje();     // ✅ data padrão
+        definirDataHoje();
         carregarDespesas();
     }
 
@@ -160,7 +160,14 @@ public class DespesaViewModel extends AndroidViewModel {
             return;
         }
 
-        double valor = Double.parseDouble(valorTexto);
+        double valor;
+
+        try {
+            valor = Double.parseDouble(valorTexto.replace(",", "."));
+        } catch (NumberFormatException e) {
+            mensagem.postValue(new Event<>("Valor inválido"));
+            return;
+        }
 
         Despesa despesa = new Despesa(
                 valor,

@@ -46,6 +46,15 @@ public class AddDespesaFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity())
                 .get(DespesaViewModel.class);
 
+        viewModel.getTextoData().observe(getViewLifecycleOwner(), texto ->
+                edtData.setText(texto)
+        );
+
+        viewModel.getTextoVencimento().observe(getViewLifecycleOwner(), texto ->
+                edtVencimento.setText(texto)
+        );
+
+
         edtData.setOnClickListener(v -> abrirDatePicker(false));
         edtVencimento.setOnClickListener(v -> abrirDatePicker(true));
 
@@ -111,8 +120,6 @@ public class AddDespesaFragment extends Fragment {
                 viewModel.getDataSelecionada(),
                 viewModel.getDataVencimentoSelecionada()
         );
-
-        Toast.makeText(requireContext(), "Despesa salva!", Toast.LENGTH_SHORT).show();
         limparCampos();
     }
 
@@ -124,4 +131,3 @@ public class AddDespesaFragment extends Fragment {
         spnCategoria.setSelection(0);
     }
 }
-
