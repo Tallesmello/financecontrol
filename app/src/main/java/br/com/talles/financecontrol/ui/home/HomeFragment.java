@@ -1,6 +1,5 @@
 package br.com.talles.financecontrol.ui.home;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.talles.financecontrol.DespesaAdapter;
@@ -33,18 +30,18 @@ import br.com.talles.financecontrol.viewmodel.DespesaViewModel;
 
 public class HomeFragment extends Fragment {
 
-    private EditText edtValor, edtDescricao, edtPesquisa, edtData, edtVencimento;
-    private Button btnAdicionar;
-    private Spinner spnCategoria, spnFiltroCategoria;
+    private EditText edtPesquisa;
+    private Spinner spnFiltroCategoria;
     private RecyclerView recyclerDespesas;
     private TextView txtResumo;
-
-    private final List<Despesa> listaFiltrada = new ArrayList<>();
     private DespesaAdapter adapter;
     private DespesaViewModel viewModel;
+    private TextView txtVazio;
+    private TextView txtContadorCategorias;
+    private final List<Despesa> listaFiltrada = new ArrayList<>();
 
     public HomeFragment() {
-        // Construtor vazio obrigatório
+        // construtor vazio obrigatório
     }
 
     @Nullable
@@ -65,15 +62,10 @@ public class HomeFragment extends Fragment {
         observarDespesas();
         observarResumo();
         observarMensagem();
-        observarDatas();
-
-        btnAdicionar.setOnClickListener(v -> adicionarDespesa());
-        edtData.setOnClickListener(v -> abrirDatePicker());
-        edtVencimento.setOnClickListener(v -> abrirDatePickerVencimento());
+        observarContadorCategorias();
 
         configurarPesquisa();
         configurarFiltroCategoria();
-        configurarSpinners();
 
         return view;
     }
@@ -85,6 +77,14 @@ public class HomeFragment extends Fragment {
             listaFiltrada.clear();
             listaFiltrada.addAll(despesas);
             adapter.notifyDataSetChanged();
+
+            if (despesas == null || despesas.isEmpty()) {
+                txtVazio.setVisibility(View.VISIBLE);
+                recyclerDespesas.setVisibility(View.GONE);
+            } else {
+                txtVazio.setVisibility(View.GONE);
+                recyclerDespesas.setVisibility(View.VISIBLE);
+            }
         });
     }
 
@@ -105,30 +105,42 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void observarDatas() {
-        viewModel.getTextoData().observe(getViewLifecycleOwner(),
-                texto -> edtData.setText(texto));
+    private void observarContadorCategorias() {
+        viewModel.getContadorCategorias().observe(getViewLifecycleOwner(), contador -> {
 
-        viewModel.getTextoVencimento().observe(getViewLifecycleOwner(),
-                texto -> edtVencimento.setText(texto));
+            if (contador == null || contador.isEmpty()) {
+                txtContadorCategorias.setText("");
+                return;
+            }
+
+            StringBuilder texto = new StringBuilder();
+
+            for (String categoria : contador.keySet()) {
+                texto.append(categoria)
+                        .append(" (")
+                        .append(contador.get(categoria))
+                        .append(")  •  ");
+            }
+
+            // remove o último separador
+            if (texto.length() >= 5) {
+                texto.setLength(texto.length() - 5);
+            }
+
+            txtContadorCategorias.setText(texto.toString());
+        });
     }
 
     /* ================= SETUP ================= */
 
     private void bindViews(View view) {
-        edtValor = view.findViewById(R.id.edtValor);
-        edtDescricao = view.findViewById(R.id.edtDescricao);
         edtPesquisa = view.findViewById(R.id.edtPesquisa);
-        edtData = view.findViewById(R.id.edtData);
-        edtVencimento = view.findViewById(R.id.edtVencimento);
-
-        btnAdicionar = view.findViewById(R.id.btnAdicionar);
-
-        spnCategoria = view.findViewById(R.id.spnCategoria);
         spnFiltroCategoria = view.findViewById(R.id.spnFiltroCategoria);
-
         recyclerDespesas = view.findViewById(R.id.recyclerDespesas);
         txtResumo = view.findViewById(R.id.txtResumo);
+        txtVazio = view.findViewById(R.id.txtVazio);
+        txtContadorCategorias = view.findViewById(R.id.txtContadorCategorias);
+
     }
 
     private void setupRecyclerView() {
@@ -138,69 +150,12 @@ public class HomeFragment extends Fragment {
         recyclerDespesas.setAdapter(adapter);
     }
 
-    /* ================= AÇÕES ================= */
-
-    private void adicionarDespesa() {
-
-        String categoria = spnCategoria.getSelectedItem() != null
-                ? spnCategoria.getSelectedItem().toString()
-                : "Geral";
-
-        viewModel.adicionarDespesa(
-                edtValor.getText().toString(),
-                edtDescricao.getText().toString(),
-                categoria,
-                viewModel.getDataSelecionada(),
-                viewModel.getDataVencimentoSelecionada()
-        );
-
-        limparCampos();
-    }
-
-    private void limparCampos() {
-        edtValor.setText("");
-        edtDescricao.setText("");
-        edtData.setText("");
-        edtVencimento.setText("");
-    }
-
-    /* ================= DATE PICKERS ================= */
-
-    private void abrirDatePicker() {
-        Calendar c = Calendar.getInstance();
-
-        new DatePickerDialog(
-                requireContext(),
-                (view, y, m, d) -> viewModel.setDataSelecionada(y, m, d),
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH)
-        ).show();
-    }
-
-    private void abrirDatePickerVencimento() {
-        Calendar c = Calendar.getInstance();
-
-        new DatePickerDialog(
-                requireContext(),
-                (view, y, m, d) -> viewModel.setDataVencimentoSelecionada(y, m, d),
-                c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH)
-        ).show();
-    }
-
     /* ================= FILTROS ================= */
 
     private void configurarPesquisa() {
         edtPesquisa.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int st, int c, int a) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
+            @Override public void beforeTextChanged(CharSequence s, int st, int c, int a) {}
+            @Override public void afterTextChanged(Editable s) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -209,8 +164,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void configurarSpinners() {
+    private void configurarFiltroCategoria() {
         List<String> categorias = new ArrayList<>();
+        categorias.add("Todas");
         categorias.add("Geral");
         categorias.add("Alimentação");
         categorias.add("Transporte");
@@ -222,26 +178,19 @@ public class HomeFragment extends Fragment {
                 android.R.layout.simple_spinner_item,
                 categorias
         );
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spnCategoria.setAdapter(adapter);
         spnFiltroCategoria.setAdapter(adapter);
-    }
 
-
-    private void configurarFiltroCategoria() {
         spnFiltroCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> p, View v, int pos, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 viewModel.setCategoriaFiltro(
-                        p.getItemAtPosition(pos).toString()
+                        parent.getItemAtPosition(position).toString()
                 );
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 }
