@@ -20,13 +20,16 @@ public class Despesa {
     private String categoria;
     private Long data; // data da despesa em timestamp
     private Long dataVencimento; // opcional
+    private String userId;
 
-    public Despesa(double valor, String descricao, String categoria, Long data, Long dataVencimento) {
+
+    public Despesa(double valor, String descricao, String categoria, Long data, Long dataVencimento, String userId) {
         this.valor = valor;
         this.descricao = descricao;
         this.categoria = categoria;
         this.data = data;
         this.dataVencimento = dataVencimento;
+        this.userId = userId;
     }
 
     // GETTERS Room
@@ -44,6 +47,10 @@ public class Despesa {
 
     public String getCategoria() {
         return categoria;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     // SETTER do ID
