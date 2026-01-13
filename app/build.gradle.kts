@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id ("com.google.gms.google-services")
 }
 
 android {
@@ -64,4 +65,8 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation ("androidx.room:room-runtime:2.6.1")
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    // Firebase BOM
+    implementation (platform("com.google.firebase:firebase-bom:33.6.0"))
+    // Firebase Authentication
+    implementation ("com.google.firebase:firebase-auth")
 }
