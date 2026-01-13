@@ -11,7 +11,7 @@ import br.com.talles.financecontrol.model.Despesa;
 /**
  * Classe principal do banco de dados
  */
-@Database(entities = {Despesa.class}, version = 3)
+@Database(entities = {Despesa.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;

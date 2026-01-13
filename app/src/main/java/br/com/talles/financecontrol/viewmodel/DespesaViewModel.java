@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,6 +27,7 @@ public class DespesaViewModel extends AndroidViewModel {
     private static final String CATEGORIA_TODAS = "Todas";
     private final DespesaDao despesaDao;
     private final ExecutorService executor;
+    private final String userId;
     private final MutableLiveData<List<Despesa>> todasDespesas = new MutableLiveData<>();
     private final MutableLiveData<List<Despesa>> despesasFiltradas = new MutableLiveData<>();
     private final MutableLiveData<String> resumoFinanceiro = new MutableLiveData<>();
@@ -45,6 +48,7 @@ public class DespesaViewModel extends AndroidViewModel {
         executor = Executors.newSingleThreadExecutor();
 
         definirDataHoje();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         carregarDespesas();
     }
 
@@ -84,7 +88,7 @@ public class DespesaViewModel extends AndroidViewModel {
     // ================= DATABASE =================
     private void carregarDespesas() {
         executor.execute(() -> {
-            List<Despesa> lista = despesaDao.listarTodas();
+            List<Despesa> lista = despesaDao.listarPorUsuario(userId);
             todasDespesas.postValue(lista);
             calcularContadorCategorias(lista);
             aplicarFiltrosComLista(lista);
@@ -167,7 +171,8 @@ public class DespesaViewModel extends AndroidViewModel {
                 descricao,
                 categoria,
                 dataSelecionada,
-                dataVencimentoSelecionada
+                dataVencimentoSelecionada,
+                userId
         );
 
         executor.execute(() -> {

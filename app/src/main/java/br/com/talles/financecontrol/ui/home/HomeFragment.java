@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.talles.financecontrol.DespesaAdapter;
+import br.com.talles.financecontrol.MainActivity;
 import br.com.talles.financecontrol.R;
 import br.com.talles.financecontrol.model.Despesa;
 import br.com.talles.financecontrol.viewmodel.DespesaViewModel;
@@ -38,6 +40,7 @@ public class HomeFragment extends Fragment {
     private DespesaViewModel viewModel;
     private TextView txtVazio;
     private TextView txtContadorCategorias;
+    private Button btnLogout;
     private final List<Despesa> listaFiltrada = new ArrayList<>();
 
     public HomeFragment() {
@@ -66,6 +69,10 @@ public class HomeFragment extends Fragment {
 
         configurarPesquisa();
         configurarFiltroCategoria();
+
+        btnLogout.setOnClickListener(v -> {
+            ((MainActivity) requireActivity()).logout();
+        });
 
         return view;
     }
@@ -140,6 +147,7 @@ public class HomeFragment extends Fragment {
         txtResumo = view.findViewById(R.id.txtResumo);
         txtVazio = view.findViewById(R.id.txtVazio);
         txtContadorCategorias = view.findViewById(R.id.txtContadorCategorias);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
     }
 
