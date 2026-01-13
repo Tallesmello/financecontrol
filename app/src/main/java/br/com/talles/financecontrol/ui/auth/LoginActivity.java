@@ -69,4 +69,15 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Email ou senha inválidos", Toast.LENGTH_SHORT).show()
                 );
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
+
 }
