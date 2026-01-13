@@ -22,17 +22,9 @@
         android:layout_marginTop="12dp"/>
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnCadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Entrar"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
-        android:id="@+id/txtCadastrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Não tem conta? Cadastre-se"
-        android:textColor="@android:color/holo_blue_dark"
+        android:text="Cadastrar"
         android:layout_marginTop="16dp"/>
 </LinearLayout>
