@@ -153,9 +153,9 @@ public class HomeFragment extends Fragment {
         txtVazio = view.findViewById(R.id.txtVazio);
         txtContadorCategorias = view.findViewById(R.id.txtContadorCategorias);
         btnLogout = view.findViewById(R.id.btnLogout);
-        btnHoje = view.findViewById(R.id.btnHoje);
-        btnMes = view.findViewById(R.id.btnMes);
-        btnTodos = view.findViewById(R.id.btnTodos);
+        btnHoje = view.findViewById(R.id.chipHoje);
+        btnMes = view.findViewById(R.id.chipMes);
+        btnTodos = view.findViewById(R.id.chipTodos);
     }
 
     private void setupRecyclerView() {

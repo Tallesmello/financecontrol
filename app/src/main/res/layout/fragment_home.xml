@@ -1,61 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnHoje"
-        android:layout_width="wrap_content"
+    <!-- Filtros por período -->
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupPeriodo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hoje"/>
+        android:layout_marginBottom="12dp"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        app:chipSpacing="8dp">
 
-    <Button
-        android:id="@+id/btnMes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Este mês"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipHoje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoje"
+            style="@style/Widget.MaterialComponents.Chip.Choice" />
 
-    <Button
-        android:id="@+id/btnTodos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Todos"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Este mês"
+            style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTodos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todos"
+            style="@style/Widget.MaterialComponents.Chip.Choice" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <!-- Pesquisa -->
     <EditText
         android:id="@+id/edtPesquisa"
-        android:hint="Pesquisar despesas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="Pesquisar despesas"
+        android:background="@drawable/bg_input"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"/>
 
-    <!-- Filtro de categoria -->
+    <!-- Categoria -->
     <Spinner
         android:id="@+id/spnFiltroCategoria"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
 
     <!-- Resumo -->
     <TextView
         android:id="@+id/txtResumo"
-        android:text="Resumo financeiro"
         android:textStyle="bold"
+        android:textColor="@color/gray_dark"
+        android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/txtContadorCategorias"
+        android:textColor="@color/gray_dark"
+        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:padding="8dp"
-        android:text="Contador por categoria" />
+        android:layout_height="wrap_content"/>
 
-    <!-- Lista de despesas -->
+    <!-- Lista -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDespesas"
         android:layout_width="match_parent"
@@ -64,20 +81,17 @@
 
     <TextView
         android:id="@+id/txtVazio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nenhuma despesa nesta categoria"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
+        android:text="Nenhuma despesa encontrada"
+        android:textColor="@color/gray_dark"
+        android:gravity="center"
         android:visibility="gone"
-        android:padding="16dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
+        android:text="Sair"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sair"/>
-
-
+        android:layout_marginTop="8dp"/>
 </LinearLayout>

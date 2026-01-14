@@ -13,6 +13,7 @@ import br.com.talles.financecontrol.ui.add.AddDespesaFragment;
 import br.com.talles.financecontrol.ui.auth.LoginActivity;
 import br.com.talles.financecontrol.ui.categoria.CategoriaFragment;
 import br.com.talles.financecontrol.ui.home.HomeFragment;
+import br.com.talles.financecontrol.ui.menu.MenuFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (item.getItemId() == R.id.menu_categoria) {
                 carregarFragment(new CategoriaFragment());
+                return true;
+            } else if (item.getItemId() == R.id.menu_menu) {
+                carregarFragment(new MenuFragment());
                 return true;
             }
             return false;
