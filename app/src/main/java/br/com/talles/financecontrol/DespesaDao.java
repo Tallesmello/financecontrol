@@ -20,7 +20,7 @@ public interface DespesaDao {
     void inserir(Despesa despesa);
 
     // Buscar todas as despesas
-    @Query("SELECT * FROM despesas WHERE userId = :userId")
+    @Query("SELECT * FROM despesas WHERE userId = :userId ORDER BY data DESC")
     List<Despesa> listarPorUsuario(String userId);
 
 }

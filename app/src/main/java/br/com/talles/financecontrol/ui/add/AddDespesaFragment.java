@@ -46,6 +46,8 @@ public class AddDespesaFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity())
                 .get(DespesaViewModel.class);
 
+        viewModel.definirDataHoje();
+
         viewModel.getTextoData().observe(getViewLifecycleOwner(), texto ->
                 edtData.setText(texto)
         );
@@ -129,7 +131,7 @@ public class AddDespesaFragment extends Fragment {
                 viewModel.getDataVencimentoSelecionada()
         );
         limparCampos();
-        viewModel.definirDataHoje();
+        resetarDataPadrao();
     }
 
     private void limparCampos() {
@@ -139,4 +141,9 @@ public class AddDespesaFragment extends Fragment {
         edtVencimento.setText("");
         spnCategoria.setSelection(0);
     }
+
+    private void resetarDataPadrao() {
+        viewModel.definirDataHoje();
+    }
+
 }
