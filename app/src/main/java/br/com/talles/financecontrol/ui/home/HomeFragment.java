@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
     private TextView txtVazio;
     private TextView txtContadorCategorias;
     private Button btnLogout;
+    private Button btnHoje, btnMes, btnTodos;
     private final List<Despesa> listaFiltrada = new ArrayList<>();
 
     public HomeFragment() {
@@ -69,6 +70,10 @@ public class HomeFragment extends Fragment {
 
         configurarPesquisa();
         configurarFiltroCategoria();
+
+        btnHoje.setOnClickListener(v -> viewModel.setFiltroHoje());
+        btnMes.setOnClickListener(v -> viewModel.setFiltroMesAtual());
+        btnTodos.setOnClickListener(v -> viewModel.setFiltroTodos());
 
         btnLogout.setOnClickListener(v -> {
             ((MainActivity) requireActivity()).logout();
@@ -148,7 +153,9 @@ public class HomeFragment extends Fragment {
         txtVazio = view.findViewById(R.id.txtVazio);
         txtContadorCategorias = view.findViewById(R.id.txtContadorCategorias);
         btnLogout = view.findViewById(R.id.btnLogout);
-
+        btnHoje = view.findViewById(R.id.btnHoje);
+        btnMes = view.findViewById(R.id.btnMes);
+        btnTodos = view.findViewById(R.id.btnTodos);
     }
 
     private void setupRecyclerView() {

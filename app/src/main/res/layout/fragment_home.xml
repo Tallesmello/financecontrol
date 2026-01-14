@@ -6,6 +6,24 @@
     android:layout_marginTop="16dp"
     android:padding="16dp">
 
+    <Button
+        android:id="@+id/btnHoje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hoje"/>
+
+    <Button
+        android:id="@+id/btnMes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Este mês"/>
+
+    <Button
+        android:id="@+id/btnTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Todos"/>
+
     <!-- Pesquisa -->
     <EditText
         android:id="@+id/edtPesquisa"

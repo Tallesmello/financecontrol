@@ -40,6 +40,39 @@ public class DespesaViewModel extends AndroidViewModel {
     private String categoriaFiltro = CATEGORIA_TODAS;
     private final MutableLiveData<Map<String, Integer>> contadorCategorias = new MutableLiveData<>();
 
+    public enum FiltroPeriodo {
+        TODOS,
+        HOJE,
+        MES,
+        INTERVALO
+    }
+
+    private FiltroPeriodo filtroPeriodo = FiltroPeriodo.TODOS;
+    private Long dataInicioFiltro = null;
+    private Long dataFimFiltro = null;
+
+    public void setFiltroHoje() {
+        filtroPeriodo = FiltroPeriodo.HOJE;
+        aplicarFiltros();
+    }
+
+    public void setFiltroMesAtual() {
+        filtroPeriodo = FiltroPeriodo.MES;
+        aplicarFiltros();
+    }
+
+    public void setFiltroTodos() {
+        filtroPeriodo = FiltroPeriodo.TODOS;
+        aplicarFiltros();
+    }
+
+    public void setFiltroIntervalo(Long inicio, Long fim) {
+        filtroPeriodo = FiltroPeriodo.INTERVALO;
+        dataInicioFiltro = inicio;
+        dataFimFiltro = fim;
+        aplicarFiltros();
+    }
+
     public DespesaViewModel(@NonNull Application application) {
         super(application);
 
@@ -96,6 +129,35 @@ public class DespesaViewModel extends AndroidViewModel {
     }
 
     // ================= FILTROS =================
+    private boolean matchPeriodo(Despesa d) {
+
+        if (filtroPeriodo == FiltroPeriodo.TODOS) {
+            return true;
+        }
+
+        Calendar dataDespesa = Calendar.getInstance();
+        dataDespesa.setTimeInMillis(d.getData());
+
+        Calendar hoje = Calendar.getInstance();
+
+        if (filtroPeriodo == FiltroPeriodo.HOJE) {
+            return dataDespesa.get(Calendar.YEAR) == hoje.get(Calendar.YEAR)
+                    && dataDespesa.get(Calendar.DAY_OF_YEAR) == hoje.get(Calendar.DAY_OF_YEAR);
+        }
+
+        if (filtroPeriodo == FiltroPeriodo.MES) {
+            return dataDespesa.get(Calendar.YEAR) == hoje.get(Calendar.YEAR)
+                    && dataDespesa.get(Calendar.MONTH) == hoje.get(Calendar.MONTH);
+        }
+
+        if (filtroPeriodo == FiltroPeriodo.INTERVALO) {
+            return d.getData() >= dataInicioFiltro && d.getData() <= dataFimFiltro;
+        }
+
+        return true;
+    }
+
+
     private void aplicarFiltrosComLista(List<Despesa> origem) {
 
         List<Despesa> resultado = new ArrayList<>();
@@ -111,7 +173,7 @@ public class DespesaViewModel extends AndroidViewModel {
                     categoriaFiltro.equals(CATEGORIA_TODAS)
                             || d.getCategoria().equals(categoriaFiltro);
 
-            if (matchTexto && matchCategoria) {
+            if (matchTexto && matchCategoria && matchPeriodo(d)) {
                 resultado.add(d);
             }
         }
