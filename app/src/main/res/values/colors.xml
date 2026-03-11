@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Base -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-
-    <!-- App palette (light) -->
-    <color name="background">#F5F5F5</color>
+    <color name="fundo_principal">#F0F2F5</color>
     <color name="surface">#FFFFFF</color>
-    <color name="divider">#E0E0E0</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#9E9E9E</color>
 
-    <!-- Primary -->
-    <color name="primary">#212121</color>
-    <color name="primary_variant">#000000</color>
-    <color name="on_primary">#FFFFFF</color>
+    <color name="cor_primaria">#009688</color> <color name="texto_principal">#1C1E21</color>
+    <color name="text_secondary">#65676B</color>
 
-    <!-- Legacy colors (compatibilidade) -->
-    <color name="gray_light">@color/divider</color>
-    <color name="gray_dark">@color/text_secondary</color>
-    <color name="gray_medium">@color/text_secondary</color>
+    <color name="divider">#DDDFE2</color>
 
-
+    <color name="white">#FFFFFF</color>
+    <color name="gray_light">#F0F2F5</color>
+    <color name="gray_medium">#8D949E</color>
+    <color name="gray_dark">#4B4F56</color>
 </resources>

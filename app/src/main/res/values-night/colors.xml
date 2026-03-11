@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="fundo_principal">#18191A</color>
+    <color name="surface">#242526</color>
 
-    <!-- Base -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="cor_primaria">#80CBC4</color> <color name="texto_principal">#E4E6EB</color>
+    <color name="text_secondary">#B0B3B8</color>
 
-    <!-- Backgrounds -->
-    <color name="background">#121212</color>
-    <color name="surface">#1E1E1E</color>
-    <color name="divider">#2C2C2C</color>
+    <color name="divider">#3E4042</color>
 
-    <!-- Text -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#BDBDBD</color>
-
-    <!-- Primary -->
-    <color name="primary">#FFFFFF</color>
-    <color name="primary_variant">#E0E0E0</color>
-    <color name="on_primary">#000000</color>
-
-    <!-- Legacy colors (compatibilidade com layouts antigos) -->
-    <color name="gray_light">@color/divider</color>
-    <color name="gray_dark">@color/text_secondary</color>
-    <color name="gray_medium">@color/text_secondary</color>
-
-
+    <color name="white">#18191A</color>
+    <color name="gray_light">#242526</color>
+    <color name="gray_medium">#3A3B3C</color>
+    <color name="gray_dark">#000000</color>
 </resources>
